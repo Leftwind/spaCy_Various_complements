@@ -30,6 +30,15 @@ class TextEditorApp(QMainWindow):
 
         central_widget.setLayout(layout)
 
+        # Create a menu bar
+        menubar = self.menuBar()
+
+        # Add a "File" menu
+        file_menu = menubar.addMenu('File')
+
+        # Add actions to the "File" menu
+        open_action = file_menu.addAction('Open', self.open_file)
+
         #Create a toolbar
         toolbar = QToolBar(self)
         self.addToolBar(toolbar)
