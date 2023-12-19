@@ -1,7 +1,7 @@
 import sys 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, \
 QToolBar, QVBoxLayout, QTextEdit
-
+import spacy
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -36,9 +36,12 @@ class MainWindow(QMainWindow):
 
         self.central_widget.setLayout(self.layout)
 
-    def extract_keywords():
-        pass    
-
+    def extract_keywords(self):
+        text = self.original_text_edit.toPlainText()
+        nlp = spacy.load("en_core_web_sm")
+        doc = nlp(text)
+        keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
+        self.keywords_text_edit.setPlainText(', '.join(keywords))
 
 
 
