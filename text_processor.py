@@ -36,12 +36,12 @@ class KeywordSelectionDialog(QDialog):
 
 
 
-class TextProcessor:
+class TextProcessor():
     def __init__(self):
         # Load the SpaCy English model
         self.nlp = spacy.load("en_core_web_sm")
 
-    def key_word_extraction(self, text, keyword_type="NOUN"):
+    def accept(self, text, keyword_type="NOUN"):
         # Process the text using SpaCy
         doc = self.nlp(text)
 

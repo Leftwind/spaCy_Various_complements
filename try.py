@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QFileDialog, QTextEdit, QWidget,\
-    QToolBar
+    QToolBar, QDialog
 from text_processor import TextProcessor, KeywordSelectionDialog
 
 
@@ -64,9 +64,15 @@ class TextEditorApp(QMainWindow):
                 self.text_edit.setPlainText(text)
 
     def key_word_extract(self):
-        #Create instance
-        text_processor = TextProcessor()
-        text_processor.key_word_extraction()
+        text_to_process = self.text_edit.toPlainText()
+
+        key_word_extract = KeywordSelectionDialog()
+        key_word_extract.exec()
+
+
+
+        
+
 
 
 
