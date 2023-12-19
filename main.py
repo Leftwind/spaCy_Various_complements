@@ -1,6 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QFileDialog, QTextEdit, QWidget,\
     QToolBar
+from text_processor import TextProcessor
 
 
 class TextEditorApp(QMainWindow):
@@ -23,10 +24,14 @@ class TextEditorApp(QMainWindow):
         self.text_edit = QTextEdit(self)
         layout.addWidget(self.text_edit)
 
-        # Create a button to open a file dialog
+        # Create a button 
         open_button = QPushButton('Open Text File', self)
         open_button.clicked.connect(self.open_file)
         layout.addWidget(open_button)
+
+        key_word_button = QPushButton('Keyword Extraction', self)
+        key_word_button.clicked.connect(self.key_word_extract)
+        layout.addWidget(key_word_button)
 
         central_widget.setLayout(layout)
 
@@ -58,6 +63,11 @@ class TextEditorApp(QMainWindow):
                 text = file.read()
                 self.text_edit.setPlainText(text)
 
+    def key_word_extract(self):
+        #Create instance
+        text_processor = TextProcessor()
+        text_processor.key_word_extraction()
+        
                
 
 
