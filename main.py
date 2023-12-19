@@ -1,7 +1,7 @@
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QPushButton, QFileDialog, QTextEdit, QWidget,\
     QToolBar
-from text_processor import TextProcessor
+from text_processor import TextProcessor, KeywordSelectionDialog
 
 
 class TextEditorApp(QMainWindow):
@@ -67,6 +67,10 @@ class TextEditorApp(QMainWindow):
         #Create instance
         text_processor = TextProcessor()
         text_processor.key_word_extraction()
+
+
+
+
         
                
 
