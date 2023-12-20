@@ -25,3 +25,4 @@ All the icons in this app are not made by me. They were designed in flaticon.com
 
 - <a href="https://www.flaticon.com/free-icons/clean" title="clean icons">Clean icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/library" title="library icons">Library icons created by nawicon - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Yogi Aprelliyanto - Flaticon</a>

@@ -28,6 +28,11 @@ class MainWindow(QMainWindow):
         upload_file_action.triggered.connect(self.upload)
         file_menu_item.addAction(upload_file_action)
 
+        #Save
+        save_as_action = QAction(QIcon("icons/diskette.png"), "Save as", self)
+        save_as_action.triggered.connect(self.save_as)
+        file_menu_item.addAction(save_as_action)
+
         #Clean HTML and XML
         clean_file_action = QAction(QIcon("icons/clean.png"), "Clean HTML/XML", self)
         clean_file_action.triggered.connect(self.clean_file)
@@ -38,8 +43,8 @@ class MainWindow(QMainWindow):
 
         self.layout = QVBoxLayout()
 
-        self.original_text_edit = QTextEdit()
-        self.layout.addWidget(self.original_text_edit)
+        self.text_edit = QTextEdit()
+        self.layout.addWidget(self.text_edit)
 
         self.extract_button = QPushButton("Extract Keywords")
         self.extract_button.clicked.connect(self.extract_keywords)
@@ -57,50 +62,32 @@ class MainWindow(QMainWindow):
         file_dialog.setNameFilter("Text Files (*.txt);;XML Files (*.xml);;Ebook Files (*.epub *.pdf);;PDF Files (*.pdf);;All Files (*)")
         file_path, _ = file_dialog.getOpenFileName(self, "Open File", "", "All Files (*)")
 
-        #Read File Content when selected and put it in original_text_edit
+        #Read File Content when selected and put it in text_edit
         if file_path:
             with open(file_path, encoding="utf8") as file: 
                 file_contents = file.read()
-                self.original_text_edit.setPlainText(file_contents)
+                self.text_edit.setPlainText(file_contents)
                 return file_path
 
+    def save_as(self):
+        dialog = QFileDialog()
+        dialog.setOptions(QFileDialog.Option.DontUseNativeDialog)
+        file_name, _ = dialog.getSaveFileName(self, "Save As", "", "Text Files (*.txt);;All Files (*)")
+
+        if file_name:
+            content = self.text_edit.toPlainText()
+            try:
+                with open(file_name, 'w') as file:
+                    file.write(content)
+                print(f'Successfully saved as {file_name}')
+            except Exception as e:
+                print(f'Error: {e}')
+
     def clean_file(self):
-        if not hasattr(self, 'file_path'):
-            self.upload()  # If file_path attribute is not set, trigger file upload
-
-        if not self.file_path:
-            return
-
-        file_extension = os.path.splitext(self.file_path)[1].lower()
-
-        if file_extension == '.xml':
-            cleaned_text = self.clean_xml_file(self.file_path)
-        elif file_extension in ['.html', '.htm']:
-            cleaned_text = self.clean_html_file(self.file_path)
-        else:
-            self.keywords_text_edit.setPlainText("Unsupported file format.")
-            return
-
-        self.original_text_edit.setPlainText(cleaned_text)
-
-    def clean_html_file(self, file_path):
-        with open(file_path, 'r', encoding='utf-8') as file:
-            html_content = file.read()
-
-        soup = BeautifulSoup(html_content, 'html.parser')
-        cleaned_text = soup.get_text(separator='\n', strip=True)
-        return cleaned_text
-
-    def clean_xml_file(self, file_path):
-        with open(file_path, 'r', encoding='utf-8') as file:
-            xml_content = file.read()
-
-        root = ET.fromstring(xml_content)
-        cleaned_text = ' '.join(root.itertext())
-        return cleaned_text
+        pass
 
     def extract_keywords(self):
-        text = self.original_text_edit.toPlainText()
+        text = self.text_edit.toPlainText()
         nlp = spacy.load("en_core_web_sm")
         doc = nlp(text)
         keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]

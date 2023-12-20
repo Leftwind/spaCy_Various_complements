@@ -33,6 +33,10 @@ class TextEditorApp(QMainWindow):
         key_word_button.clicked.connect(self.key_word_extract)
         layout.addWidget(key_word_button)
 
+        save_as_button = QPushButton("Save As", self)
+        save_as_button.clicked.connect(self.save_text)
+        
+
         central_widget.setLayout(layout)
 
         # Create a menu bar
@@ -62,6 +66,11 @@ class TextEditorApp(QMainWindow):
             with open(file_name, 'r') as file:
                 text = file.read()
                 self.text_edit.setPlainText(text)
+
+    def save_text(self):
+        content = self.text_edit
+
+
 
     def key_word_extract(self):
         text_to_process = self.text_edit.toPlainText()
