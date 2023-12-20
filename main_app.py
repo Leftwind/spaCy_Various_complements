@@ -15,6 +15,7 @@ class MainWindow(QMainWindow):
     def init_ui(self):
         self.setWindowTitle("Spacy Text Processor")
         self.setWindowIcon(QIcon("icons/logo.png"))
+        
         self.setMinimumSize(800, 800)
 
         #Menu Bar
@@ -23,7 +24,7 @@ class MainWindow(QMainWindow):
         search_menu_item = self.menuBar().addMenu("&Search")
 
         #Add ACtions to menuBar
-        upload_file_action = QAction(QIcon("icons/upload_file.png"), "Upload File", self)
+        upload_file_action = QAction(QIcon("icons/upload_file.png"), "Import File", self)
         upload_file_action.triggered.connect(self.upload)
         file_menu_item.addAction(upload_file_action)
 
@@ -85,15 +86,14 @@ class MainWindow(QMainWindow):
 
     def clean_file(self):
         content = self.text_edit.toPlainText()
-        CLEANR = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
-        cleantext = re.sub(CLEANR, '', content)
-        #Put text back in the Square
+        #Funciona peor
+        #CLEANR = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+        #cleantext = re.sub(CLEANR, '', content)      
+
+        #There is also the option of using BS4: Funciona mucho mejor, porque elimina los espacios
+        from bs4 import BeautifulSoup
+        cleantext = BeautifulSoup(content, "lxml").text
         self.text_edit.setPlainText(cleantext)
-
-        #There is also the option of using BS4: 
-        #from bs4 import BeautifulSoup
-        #cleantext = BeautifulSoup(raw_html, "lxml").text
-
 
 
 
