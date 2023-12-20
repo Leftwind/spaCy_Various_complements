@@ -4,8 +4,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, \
 QToolBar, QVBoxLayout, QTextEdit, QFileDialog, QMessageBox
 from PyQt6.QtGui import QAction, QIcon
 import spacy
-import xml.etree.ElementTree as ET
-from bs4 import BeautifulSoup
+import re
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -67,7 +66,7 @@ class MainWindow(QMainWindow):
             with open(file_path, encoding="utf8") as file: 
                 file_contents = file.read()
                 self.text_edit.setPlainText(file_contents)
-                return file_path
+                
 
     def save_as(self):
         dialog = QFileDialog()
@@ -85,7 +84,19 @@ class MainWindow(QMainWindow):
 
 
     def clean_file(self):
-        pass
+        content = self.text_edit.toPlainText()
+        CLEANR = re.compile('<.*?>|&([a-z0-9]+|#[0-9]{1,6}|#x[0-9a-f]{1,6});')
+        cleantext = re.sub(CLEANR, '', content)
+        #Put text back in the Square
+        self.text_edit.setPlainText(cleantext)
+
+        #There is also the option of using BS4: 
+        #from bs4 import BeautifulSoup
+        #cleantext = BeautifulSoup(raw_html, "lxml").text
+
+
+
+
 
     def extract_keywords(self):
         text = self.text_edit.toPlainText()
