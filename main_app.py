@@ -12,6 +12,7 @@ class MainWindow(QMainWindow):
 
     def init_ui(self):
         self.setWindowTitle("Spacy Text Processor")
+        self.setWindowIcon(QIcon())
         self.setMinimumSize(800, 800)
 
         #Menu Bar
