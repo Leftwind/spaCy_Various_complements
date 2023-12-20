@@ -1,7 +1,7 @@
 import os
 import sys 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, \
-QToolBar, QVBoxLayout, QTextEdit, QFileDialog
+QToolBar, QVBoxLayout, QTextEdit, QFileDialog, QMessageBox
 from PyQt6.QtGui import QAction, QIcon
 import spacy
 import xml.etree.ElementTree as ET
@@ -79,9 +79,10 @@ class MainWindow(QMainWindow):
             try:
                 with open(file_name, 'w') as file:
                     file.write(content)
-                print(f'Successfully saved as {file_name}')
+                QMessageBox.information(self, 'Success', f'Successfully saved in {file_name}')
             except Exception as e:
-                print(f'Error: {e}')
+                QMessageBox.critical(self, 'Error', f'Error: {e}')
+
 
     def clean_file(self):
         pass
