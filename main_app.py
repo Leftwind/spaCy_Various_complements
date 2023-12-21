@@ -1,6 +1,6 @@
 import sys 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, \
-QVBoxLayout, QTextEdit, QFileDialog, QMessageBox, QDialog, QSlider
+QVBoxLayout, QTextEdit, QFileDialog, QMessageBox, QDialog, QComboBox
 from PyQt6.QtGui import QAction, QIcon
 import spacy
 from bs4 import BeautifulSoup
@@ -125,12 +125,17 @@ class NlpLoadSelect(QDialog):
         self.setMinimumSize(200, 100)
 
         self.accept_button = QPushButton("Change Load", self)
-        slider = QSlider(self)
+        
+        #Combo_box Items
+        self.combo_box = QComboBox(self)
+        self.combo_box.addItem("English")
+        self.combo_box.addItem("Spanish")
+        self.combo_box.addItem("German")
 
         #Layout
         layout = QVBoxLayout()
         layout.addWidget(self.accept_button)
-        layout.addWidget(slider)
+        layout.addWidget(self.combo_box)
 
         #Connectioon
         self.accept_button.clicked.connect(self.change_nlp)
@@ -139,7 +144,12 @@ class NlpLoadSelect(QDialog):
         self.setLayout(layout)
 
     def change_nlp(self):
-        pass
+        if self.combo_box == "English":
+            DefaultSettings.change_nlp("en_core_web_sm")
+        elif self.combo_box == "Spanish":
+            DefaultSettings.change_nlp("es_core_news_sm")   
+        elif self.combo_box == "German":
+            DefaultSettings.change_nlp("de_core_news_sm")     
 
 
 
