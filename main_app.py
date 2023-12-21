@@ -144,13 +144,16 @@ class NlpLoadSelect(QDialog):
         self.setLayout(layout)
 
     def change_nlp(self):
-        if self.combo_box == "English":
-            DefaultSettings.change_nlp("en_core_web_sm")
-        elif self.combo_box == "Spanish":
-            DefaultSettings.change_nlp("es_core_news_sm")   
-        elif self.combo_box == "German":
-            DefaultSettings.change_nlp("de_core_news_sm")     
+        selected_language = self.combo_box.currentText()
 
+        if selected_language == "English":
+            DefaultSettings.change_nlp(spacy.load("en_core_web_sm"))
+        elif selected_language == "Spanish":
+            DefaultSettings.change_nlp(spacy.load("es_core_news_sm"))   
+        elif selected_language == "German":
+            DefaultSettings.change_nlp(spacy.load("de_core_news_sm")) 
+
+        self.accept()    
 
 
 

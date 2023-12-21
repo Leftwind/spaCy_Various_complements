@@ -7,7 +7,8 @@ This is the main fuction of the program, is easy to use and to acces. You write 
 
 ## Change Load
 
-You can change the NLP load in the config menu. It has spanish, german and english. 
+You can change the NLP load in the config menu. It has spanish, german and english. As seen in this example:
+![Language Selection](/images/NVIDIA_Share_HMLAWiHEkJ.png "Optional title")
 
 ## Todo, create backend
 
