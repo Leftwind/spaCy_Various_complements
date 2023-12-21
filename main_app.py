@@ -1,15 +1,22 @@
-import os
 import sys 
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QWidget, \
-QToolBar, QVBoxLayout, QTextEdit, QFileDialog, QMessageBox
+QVBoxLayout, QTextEdit, QFileDialog, QMessageBox, QDialog, QSlider
 from PyQt6.QtGui import QAction, QIcon
 import spacy
-import re
+from bs4 import BeautifulSoup
+
+
+#Global Variables:
+class DefaultSettings:
+    nlp = spacy.load("en_core_web_sm")
+
+    @classmethod
+    def change_nlp(cls, new_value):
+        cls.nlp = new_value
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.init_ui()
 
     def init_ui(self):
@@ -20,7 +27,7 @@ class MainWindow(QMainWindow):
 
         #Menu Bar
         file_menu_item = self.menuBar().addMenu("&File")
-        help_menu_item = self.menuBar().addMenu("&Help")
+        config_menu_item = self.menuBar().addMenu("&Config")
         search_menu_item = self.menuBar().addMenu("&Search")
 
         #Add ACtions to menuBar
@@ -37,6 +44,11 @@ class MainWindow(QMainWindow):
         clean_file_action = QAction(QIcon("icons/clean.png"), "Clean HTML/XML", self)
         clean_file_action.triggered.connect(self.clean_file)
         file_menu_item.addAction(clean_file_action)
+
+        #Select NLP
+        select_nlp_action = QAction(QIcon("icons/procesamiento-natural-del-lenguaje.png"), "Change NLP Load", self)
+        select_nlp_action.triggered.connect(self.select_nlp)
+        config_menu_item.addAction(select_nlp_action)
 
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
@@ -66,8 +78,7 @@ class MainWindow(QMainWindow):
         if file_path:
             with open(file_path, encoding="utf8") as file: 
                 file_contents = file.read()
-                self.text_edit.setPlainText(file_contents)
-                
+                self.text_edit.setPlainText(file_contents)              
 
     def save_as(self):
         dialog = QFileDialog()
@@ -83,7 +94,6 @@ class MainWindow(QMainWindow):
             except Exception as e:
                 QMessageBox.critical(self, 'Error', f'Error: {e}')
 
-
     def clean_file(self):
         content = self.text_edit.toPlainText()
         #Funciona peor
@@ -91,19 +101,45 @@ class MainWindow(QMainWindow):
         #cleantext = re.sub(CLEANR, '', content)      
 
         #There is also the option of using BS4: Funciona mucho mejor, porque elimina los espacios
-        from bs4 import BeautifulSoup
+        
         cleantext = BeautifulSoup(content, "lxml").text
         self.text_edit.setPlainText(cleantext)
 
-
-
-
     def extract_keywords(self):
         text = self.text_edit.toPlainText()
-        nlp = spacy.load("en_core_web_sm")
-        doc = nlp(text)
+        
+        doc = DefaultSettings.nlp(text)
         keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
         self.keywords_text_edit.setPlainText(', '.join(keywords))
+
+    def select_nlp(self):
+        select_nlp = NlpLoadSelect()
+        select_nlp.exec()
+
+
+class NlpLoadSelect(QDialog):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle("Select spacy load")
+        self.setWindowIcon(QIcon("icons/logo.png"))
+        self.setMinimumSize(200, 100)
+
+        self.accept_button = QPushButton("Change Load", self)
+        slider = QSlider(self)
+
+        #Layout
+        layout = QVBoxLayout()
+        layout.addWidget(self.accept_button)
+        layout.addWidget(slider)
+
+        #Connectioon
+        self.accept_button.clicked.connect(self.change_nlp)
+        
+        #Set up
+        self.setLayout(layout)
+
+    def change_nlp(self):
+        pass
 
 
 

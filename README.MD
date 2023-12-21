@@ -5,6 +5,10 @@ Simple Project with PyQt6 and Spacy to decode a file, tokenize it and analize it
 
 This is the main fuction of the program, is easy to use and to acces. You write a text or upload it from any file formar and the extract the words. Also you can clean HTML and XML files using the Menu Bar to extract the words
 
+## Change Load
+
+You can change the NLP load in the config menu. It has spanish, german and english. 
+
 ## Todo, create backend
 
 - ~~Keyword Extraction~~
@@ -26,3 +30,4 @@ All the icons in this app are not made by me. They were designed in flaticon.com
 - <a href="https://www.flaticon.com/free-icons/clean" title="clean icons">Clean icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/library" title="library icons">Library icons created by nawicon - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Yogi Aprelliyanto - Flaticon</a>
+- <a href="https://www.flaticon.es/iconos-gratis/nlp" title="nlp iconos">Nlp iconos creados por Freepik - Flaticon</a>
