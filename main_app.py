@@ -62,9 +62,7 @@ class MainWindow(QMainWindow):
         self.extract_button.clicked.connect(self.extract_keywords)
         self.layout.addWidget(self.extract_button)
 
-        self.keywords_text_edit = QTextEdit()
-        self.keywords_text_edit.setReadOnly(True)  # Make it read-only
-        self.layout.addWidget(self.keywords_text_edit)
+        
 
         #Central Widget
         self.central_widget.setLayout(self.layout)
@@ -106,11 +104,8 @@ class MainWindow(QMainWindow):
         self.text_edit.setPlainText(cleantext)
 
     def extract_keywords(self):
-        text = self.text_edit.toPlainText()
-        
-        doc = DefaultSettings.nlp(text)
-        keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
-        self.keywords_text_edit.setPlainText(', '.join(keywords))
+        extract_keywords = KeywordWindow(self)
+        extract_keywords.exec()
 
     def select_nlp(self):
         select_nlp = NlpLoadSelect()
@@ -155,8 +150,32 @@ class NlpLoadSelect(QDialog):
 
         self.accept()    
 
+class KeywordWindow(QDialog):
+    def __init__(self, main_window):
+        super().__init__()
+        self.main_window = main_window
+        
+        self.setWindowTitle("Extracted Keywords")
+        self.setWindowIcon(QIcon("icons/logo.png"))
+        self.setMinimumSize(400, 400)
 
+        layout = QVBoxLayout()
 
+        self.keywords_text_edit = QTextEdit()
+        self.keywords_text_edit.setReadOnly(True)  # Make it read-only
+        layout.addWidget(self.keywords_text_edit)
+
+        # Set the layout on the main widget
+        self.setLayout(layout)
+
+        self.keyword_extract()
+
+    def keyword_extract(self):
+        text = self.main_window.text_edit.toPlainText()
+        
+        doc = DefaultSettings.nlp(text)
+        keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
+        self.keywords_text_edit.setPlainText(', '.join(keywords))       
 
 
 
