@@ -62,8 +62,6 @@ class MainWindow(QMainWindow):
         self.extract_button.clicked.connect(self.extract_keywords)
         self.layout.addWidget(self.extract_button)
 
-        
-
         #Central Widget
         self.central_widget.setLayout(self.layout)
 
