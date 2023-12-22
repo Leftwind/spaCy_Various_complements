@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 
 #Global Variables:
 class DefaultSettings:
+    #NLP Extract
     nlp = spacy.load("en_core_web_sm")
 
     @classmethod
@@ -50,6 +51,11 @@ class MainWindow(QMainWindow):
         select_nlp_action.triggered.connect(self.select_nlp)
         config_menu_item.addAction(select_nlp_action)
 
+        nep_action = QAction(QIcon("icons/job.png"), "Name Entity Recog", self)
+        nep_action.triggered.connect(self.nep)
+        file_menu_item.addAction(nep_action)
+
+
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
 
@@ -61,6 +67,10 @@ class MainWindow(QMainWindow):
         self.extract_button = QPushButton("Extract Keywords")
         self.extract_button.clicked.connect(self.extract_keywords)
         self.layout.addWidget(self.extract_button)
+
+        self.nep_button = QPushButton("NEP")
+        self.nep_button.clicked.connect(self.nep)
+        self.layout.addWidget(self.nep_button)
 
         #Central Widget
         self.central_widget.setLayout(self.layout)
@@ -109,6 +119,9 @@ class MainWindow(QMainWindow):
         select_nlp = NlpLoadSelect()
         select_nlp.exec()
 
+    def nep(self):
+        nep = NameEntityRecog(self)
+        nep.exec()
 
 class NlpLoadSelect(QDialog):
     def __init__(self):
@@ -175,8 +188,36 @@ class KeywordWindow(QDialog):
         keywords = [token.text for token in doc if token.is_alpha and not token.is_stop]
         self.keywords_text_edit.setPlainText(', '.join(keywords))       
 
+class NameEntityRecog(QDialog):
+    def __init__(self, main_window):
+        super().__init__()
+        self.main_window = main_window
+        
+        self.setWindowTitle("NER")
+        self.setWindowIcon(QIcon("icons/logo.png"))
+        self.setMinimumSize(400, 400)
+        
+        layout = QVBoxLayout()
 
+        self.keywords_text_edit = QTextEdit()
+        self.keywords_text_edit.setReadOnly(True)  # Make it read-only
+        layout.addWidget(self.keywords_text_edit)
 
+        # Set the layout on the main widget
+        self.setLayout(layout)
+
+        self.name_entity_recog()
+
+    def name_entity_recog(self):
+        text = self.main_window.text_edit.toPlainText()
+
+        doc = DefaultSettings.nlp(text )
+        entities_text = ""
+
+        for ent in doc.ents:
+            entities_text += f"{ent.text} ({ent.label_})\n"
+
+        self.keywords_text_edit.setPlainText(entities_text)    
 
 
 

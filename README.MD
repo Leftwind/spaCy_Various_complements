@@ -1,5 +1,5 @@
-# Spacy
-Simple Project with PyQt6 and Spacy to decode a file, tokenize it and analize it. In the future it should use a library for Hugginface to apply some calculations over it. 
+# Spacy File Manager
+Project with PyQt6 and Spacy to decode a file, tokenize it and analize it. In the future it should use a library for Hugginface to apply some calculations over it. 
 
 # KeyWord Extraction
 
@@ -8,7 +8,12 @@ This is the main fuction of the program, is easy to use and to acces. You write 
 ## Change Load
 
 You can change the NLP load in the config menu. It has spanish, german and english. As seen in this example:
+
 ![Language Selection](/images/NVIDIA_Share_HMLAWiHEkJ.png "Optional title")
+
+# NER
+
+This First version of NER does not let the user load a new PIPE, we are using the first one for test purposes. 
 
 ## Todo, create backend
 
@@ -24,7 +29,7 @@ You can change the NLP load in the config menu. It has spanish, german and engli
 - Language Translation
 
 
-# Icon Attibution
+# Icon Attribution
 
 All the icons in this app are not made by me. They were designed in flaticon.com. 
 
@@ -32,3 +37,4 @@ All the icons in this app are not made by me. They were designed in flaticon.com
 - <a href="https://www.flaticon.com/free-icons/library" title="library icons">Library icons created by nawicon - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Yogi Aprelliyanto - Flaticon</a>
 - <a href="https://www.flaticon.es/iconos-gratis/nlp" title="nlp iconos">Nlp iconos creados por Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/agent" title="agent icons">Agent icons created by Freepik - Flaticon</a>
