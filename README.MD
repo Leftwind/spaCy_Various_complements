@@ -9,11 +9,13 @@ This is the main fuction of the program, is easy to use and to acces. You write 
 
 You can change the NLP load in the config menu. It has spanish, german and english. As seen in this example:
 
-![Language Selection](/images/NVIDIA_Share_HMLAWiHEkJ.png "Optional title")
+![Language Selection](/images/NVIDIA_Share_HMLAWiHEkJ.png "Language Selection")
 
 # NER
 
-This First version of NER does not let the user load a new PIPE, we are using the first one for test purposes. 
+This First version of NER does not let the user load a new PIPE, we are using the first one for test purposes. Here is an example of a text in spanish: 
+
+![NER example](/images/python_OeaeiPgKGT.png "NER")
 
 ## Todo, create backend
 
