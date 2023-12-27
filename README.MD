@@ -20,7 +20,7 @@ This First version of NER does not let the user load a new PIPE, we are using th
 ## Todo, create backend
 
 - ~~Keyword Extraction~~
-- NER
+- ~~NER~~
 - Skill Matching
 - Sentiment Analysis
 - Resumen Summrization
