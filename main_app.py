@@ -219,7 +219,15 @@ class NameEntityRecog(QDialog):
 
         self.keywords_text_edit.setPlainText(entities_text)    
 
+class CustomMathcer(QDialog):
+    def __init__(self, main_window):
+        super().__init__()
+        self.main_window = main_window
 
+        self.setWindowTitle("Custom Matcher")
+        self.setWindowIcon(QIcon("incons/logo.png"))
+        
+        
 
 
 def main():
