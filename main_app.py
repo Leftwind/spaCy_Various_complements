@@ -234,6 +234,7 @@ class CustomMathcer(QDialog):
         #Need to create different options to create the line of code. 
         #Need to modify this: pattern = [{"LOWER": "hello"}, {"IS_PUNCT": True}, {"LOWER": "world"}]
          
+        #Need a patter name: 
 
         #We will create 3 differente comboBoxes that will be printed in a small Qdialog Window, that can be managed by hand
         #Then it will be send too the matcher:
