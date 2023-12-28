@@ -4,6 +4,7 @@ QVBoxLayout, QTextEdit, QFileDialog, QMessageBox, QDialog, QComboBox
 from PyQt6.QtGui import QAction, QIcon
 import spacy
 from bs4 import BeautifulSoup
+from spacy.matcher import Matcher
 
 
 #Global Variables:
@@ -226,7 +227,31 @@ class CustomMathcer(QDialog):
 
         self.setWindowTitle("Custom Matcher")
         self.setWindowIcon(QIcon("incons/logo.png"))
-        
+        self.setMinimumSize(400,400)
+
+        layout = QVBoxLayout()
+
+        #Need to create different options to create the line of code. 
+        #Need to modify this: pattern = [{"LOWER": "hello"}, {"IS_PUNCT": True}, {"LOWER": "world"}]
+         
+
+        #We will create 3 differente comboBoxes that will be printed in a small Qdialog Window, that can be managed by hand
+        #Then it will be send too the matcher:
+        #pattern_created = Sum of all of the things, also QDialog.
+
+        def matcher(self):
+            matcher = Matcher(DefaultSettings.nlp.vocab)
+
+            #Add Pattern
+            pattern = self.pattern_created
+            matcher.add("HelloWorld", [pattern])
+
+            doc = DefaultSettings.nlp("Hello, world! Hello world!")
+            matches = matcher(doc)
+            for match_id, start, end in matches:
+                string_id = DefaultSettings.nlp.vocab.strings[match_id]  # Get string representation
+                span = doc[start:end]  # The matched span
+                print(match_id, string_id, start, end, span.text)
         
 
 
