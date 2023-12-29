@@ -40,3 +40,4 @@ All the icons in this app are not made by me. They were designed in flaticon.com
 - <a href="https://www.flaticon.com/free-icons/save" title="save icons">Save icons created by Yogi Aprelliyanto - Flaticon</a>
 - <a href="https://www.flaticon.es/iconos-gratis/nlp" title="nlp iconos">Nlp iconos creados por Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/agent" title="agent icons">Agent icons created by Freepik - Flaticon</a>
+- <a href="https://www.flaticon.com/free-icons/matching" title="matching icons">Matching icons created by Freepik - Flaticon</a>
