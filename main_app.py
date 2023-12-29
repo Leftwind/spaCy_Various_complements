@@ -78,7 +78,12 @@ class MainWindow(QMainWindow):
         self.nep_button.clicked.connect(self.nep)
         self.layout.addWidget(self.nep_button)
 
+        self.match_button = QPushButton("Custom Matcher")
+        self.match_button.clicked.connect(self.match)
+        self.layout.addWidget(self.match_button)
+
         #Central Widget
+        self.layout.addStretch()
         self.central_widget.setLayout(self.layout)
 
     def upload(self):
@@ -248,7 +253,7 @@ class CustomMathcer(QDialog):
         self.third_argument_combo = QComboBox()
 
         #Add items
-        self.first_argument_combo.addItem() 
+        #self.first_argument_combo.addItem() 
          
         #Need a patter name: 
 
