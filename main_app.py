@@ -52,10 +52,15 @@ class MainWindow(QMainWindow):
         select_nlp_action.triggered.connect(self.select_nlp)
         config_menu_item.addAction(select_nlp_action)
 
+        #NEP
         nep_action = QAction(QIcon("icons/job.png"), "Name Entity Recog", self)
         nep_action.triggered.connect(self.nep)
         file_menu_item.addAction(nep_action)
 
+        #Matcher
+        matcher_action = QAction(QIcon("icons/puzzle.png"), "Custom Matcher", self)
+        matcher_action.triggered.connect(self.match)
+        file_menu_item.addAction(matcher_action)
 
         self.central_widget = QWidget()
         self.setCentralWidget(self.central_widget)
@@ -123,6 +128,11 @@ class MainWindow(QMainWindow):
     def nep(self):
         nep = NameEntityRecog(self)
         nep.exec()
+
+    def match(self):
+        matche = CustomMathcer(self)
+        matche.exec()
+
 
 class NlpLoadSelect(QDialog):
     def __init__(self):
@@ -233,6 +243,12 @@ class CustomMathcer(QDialog):
 
         #Need to create different options to create the line of code. 
         #Need to modify this: pattern = [{"LOWER": "hello"}, {"IS_PUNCT": True}, {"LOWER": "world"}]
+        self.first_argument_combo = QComboBox()
+        self.second_argument_combo = QComboBox()
+        self.third_argument_combo = QComboBox()
+
+        #Add items
+        self.first_argument_combo.addItem() 
          
         #Need a patter name: 
 
