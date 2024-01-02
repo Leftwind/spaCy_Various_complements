@@ -17,6 +17,10 @@ This First version of NER does not let the user load a new PIPE, we are using th
 
 ![NER example](/images/python_OeaeiPgKGT.png "NER")
 
+## NER custom Matcher
+
+WE are planing a new matcher that checks custom sentences and is kind of automated. 
+
 ## Todo, create backend
 
 - ~~Keyword Extraction~~
